@@ -1,15 +1,12 @@
 package com.example.excrv;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +17,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private List<Item> items;
     Context context;
-
+    EditText Aname,Anumber;
     public MyAdapter(Context context,List<Item> items) {
         this.items = items;
         this.context=context;
@@ -42,27 +39,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                final EditText Aname = new EditText(context);
+                LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View customLayout = inflater.inflate(R.layout.contact_form, null);
+                alert.setTitle("Update contact");
+                alert.setView(customLayout);
+                Dialog dialog = alert.create();
+                Aname = customLayout.findViewById(R.id.formName);
+                Anumber = customLayout.findViewById(R.id.formNumber);
+                Aname.setText(holder.name.getText());
+                Anumber.setText(holder.number.getText());
 
-                alert.setTitle("write name");
-                alert.setView(Aname);
-                alert.setPositiveButton("next",new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("Update",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                        final EditText Anumber = new EditText(context);
-                        Anumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
-
-                        alert.setTitle("write number");
-                        alert.setView(Anumber);
-
-                        alert.setPositiveButton("Done",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                holder.name.setText(Aname.getText().toString());
-                                holder.number.setText(Anumber.getText().toString());
-                            }
-                        });
-                        alert.setNegativeButton("cancel",null);
-                        alert.show();
+                        holder.name.setText(Aname.getText().toString());
+                        holder.number.setText(Anumber.getText().toString());
                     }
                 });
                 alert.setNegativeButton("cancel",null);
@@ -72,18 +62,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int deadboy =i;
-                AlertDialog.Builder alert2=new AlertDialog.Builder(context);
-                alert2.setTitle("Delete "+items.get(deadboy).getName());
-                alert2.setMessage("Are you sure");
-                alert2.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                int toDelete=i;
+                AlertDialog.Builder alert=new AlertDialog.Builder(context);
+                alert.setTitle("Delete "+items.get(toDelete).getName());
+                alert.setMessage("Delete contact "+items.get(toDelete).getName()+"?");
+                alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        items.remove(items.get(deadboy));
+                        items.remove(items.get(toDelete));
                         notifyDataSetChanged();
                     }
                 });
-                alert2.show();
+                alert.setNegativeButton("No",null);
+                alert.show();
             }
         });
 

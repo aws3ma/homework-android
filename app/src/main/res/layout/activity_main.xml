@@ -9,17 +9,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="654dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:backgroundTint="#FF1A4F"
-        app:srcCompat="@android:drawable/ic_input_add"
-        />
+        app:backgroundTint="#1068FF"
+        app:rippleColor="#2B2B2B"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </LinearLayout>
