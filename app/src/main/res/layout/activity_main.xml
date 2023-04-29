@@ -10,7 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RC"
         android:layout_width="match_parent"
-        android:layout_height="654dp" />
+        android:layout_height="653dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"

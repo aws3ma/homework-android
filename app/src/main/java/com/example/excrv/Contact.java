@@ -1,11 +1,19 @@
 package com.example.excrv;
 
-public class Item {
+public class Contact {
+    private int id;
     private String name,number;
 
-    public Item(String name, String number) {
+    public Contact(String name, String number) {
         this.name = name;
         this.number = number;
+    }public Contact(int id,String name, String number) {
+        this.id=id;
+        this.name = name;
+        this.number = number;
+    }
+    public Contact(int id){
+        this.id=id;
     }
 
     public String getName() {
@@ -24,4 +32,11 @@ public class Item {
         this.number = number;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
