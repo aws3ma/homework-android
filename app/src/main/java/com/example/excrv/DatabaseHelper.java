@@ -37,7 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(c.moveToNext()){
             contacts.add(new Contact(c.getInt(0),c.getString(1),c.getString(2)));
         }
+        c.close();
         db.close();
+
         return contacts;
     }
     public ArrayList<Contact> getAll(String keyword){
@@ -47,12 +49,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(c.moveToNext()){
             contacts.add(new Contact(c.getInt(0),c.getString(1),c.getString(2)));
         }
+        c.close();
         db.close();
         return contacts;
     }
     public void updateContact(Contact c){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("update contacts set nom = '"+c.getName()+"', tel = '"+c.getNumber()+"' where id = "+c.getId());
+        ContentValues cv = new ContentValues();
+        cv.put("nom",c.getName());
+        cv.put("tel",c.getNumber());
+        db.update("contacts",cv,"id=?",new String[]{c.getId()+""} );
         db.close();
     }
     public void deleteContact(Contact c){

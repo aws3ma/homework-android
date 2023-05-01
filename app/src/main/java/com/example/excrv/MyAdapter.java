@@ -50,6 +50,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 String number = Anumber.getText().toString();
                 holder.name.setText(name);
                 holder.number.setText(number);
+                items.get(i).setName(name);
+                items.get(i).setNumber(number);
                 db.updateContact(items.get(i));
             });
             alert.setNegativeButton("cancel",null);
